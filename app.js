@@ -68,7 +68,4 @@ import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.0/f
 
 async function test() {
   const snapshot = await getDocs(collection(db, "products"));
-  console.log(snapshot.docs.map(doc => doc.data()));
-}
-
-test();
+  console.log(snapshot.docs.map
