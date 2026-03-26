@@ -64,3 +64,11 @@ loadProducts();
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 
 const db = getFirestore(app);
+import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+
+async function test() {
+  const snapshot = await getDocs(collection(db, "products"));
+  console.log(snapshot.docs.map(doc => doc.data()));
+}
+
+test();
