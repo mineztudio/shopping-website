@@ -6,7 +6,7 @@ import {
   addDoc
 } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 
-// 🔥 YOUR FIREBASE CONFIG (PASTED)
+// 🔥 Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyDLFD0a4IWDyC5jpB8Xw1Atti5M3I-Zg-M",
   authDomain: "shopping-website-3dde5.firebaseapp.com",
@@ -17,7 +17,7 @@ const firebaseConfig = {
   measurementId: "G-H2XZK6K4JP"
 };
 
-// Initialize
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
@@ -25,41 +25,63 @@ const db = getFirestore(app);
 let cart = [];
 let products = [];
 
-// Load products
+// Load Products
 async function loadProducts() {
-  const snapshot = await getDocs(collection(db, "products"));
-  products = snapshot.docs.map(doc => doc.data());
-
   const container = document.getElementById("products");
-  container.innerHTML = "";
+  container.innerHTML = "<h3>Loading products...</h3>";
 
-  products.forEach(p => {
-    container.innerHTML += `
-      <div class="card">
-        <img src="${p.image}" width="100%">
-        <h3>${p.name}</h3>
-        <p>₹${p.price}</p>
-        <button onclick='addToCart(${JSON.stringify(p)})'>Add</button>
-      </div>
-    `;
-  });
+  try {
+    const snapshot = await getDocs(collection(db, "products"));
+    products = snapshot.docs.map(doc => doc.data());
+
+    container.innerHTML = "";
+
+    products.forEach((p, index) => {
+      container.innerHTML += `
+        <div class="card">
+          <img src="${p.image}" width="100%">
+          <h3>${p.name}</h3>
+          <p>₹${p.price}</p>
+          <button onclick="addToCart(${index})">Add</button>
+        </div>
+      `;
+    });
+
+  } catch (error) {
+    container.innerHTML = "<h3>Error loading products ❌</h3>";
+    console.error(error);
+  }
 }
 
-// Add to cart
-window.addToCart = (product) => {
-  cart.push(product);
+// Add to Cart (FIXED SAFE VERSION)
+window.addToCart = (index) => {
+  cart.push(products[index]);
   document.getElementById("cart-count").innerText = cart.length;
 };
 
-// Place order
+// Place Order (FIXED)
 window.placeOrder = async () => {
-  await addDoc(collection(db, "orders"), {
-    items: cart,
-    date: new Date()
-  });
+  if (cart.length === 0) {
+    alert("Cart is empty ❌");
+    return;
+  }
 
-  alert("Order Placed ✅");
-  cart = [];
+  try {
+    await addDoc(collection(db, "orders"), {
+      items: cart,
+      date: new Date()
+    });
+
+    alert("Order Placed ✅");
+
+    cart = [];
+    document.getElementById("cart-count").innerText = 0;
+
+  } catch (error) {
+    alert("Order Failed ❌");
+    console.error(error);
+  }
 };
 
+// Start app
 loadProducts();
