@@ -1,11 +1,12 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  addDoc
+} from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// 🔥 YOUR FIREBASE CONFIG (PASTED)
 const firebaseConfig = {
   apiKey: "AIzaSyDLFD0a4IWDyC5jpB8Xw1Atti5M3I-Zg-M",
   authDomain: "shopping-website-3dde5.firebaseapp.com",
@@ -16,12 +17,13 @@ const firebaseConfig = {
   measurementId: "G-H2XZK6K4JP"
 };
 
-// Initialize Firebase
+// Initialize
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const db = getFirestore(app);
 
-let products = [];
+// Data
 let cart = [];
+let products = [];
 
 // Load products
 async function loadProducts() {
@@ -61,11 +63,3 @@ window.placeOrder = async () => {
 };
 
 loadProducts();
-import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
-
-const db = getFirestore(app);
-import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
-
-async function test() {
-  const snapshot = await getDocs(collection(db, "products"));
-  console.log(snapshot.docs.map
