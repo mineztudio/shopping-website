@@ -12,15 +12,13 @@ const firebaseConfig = {
   projectId: "shopping-website-3dde5",
   storageBucket: "shopping-website-3dde5.firebasestorage.app",
   messagingSenderId: "286025680401",
-  appId: "1:286025680401:web:d14e0384b9e35ff69993b0",
-  measurementId: "G-Q54SZ2MCMR"
+  appId: "1:286025680401:web:b4e7e5bcf39e92799993b0",
+  measurementId: "G-H2XZK6K4JP"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-const db = getFirestore(app);
-const auth = getAuth(app);
 
 let products = [];
 let cart = [];
