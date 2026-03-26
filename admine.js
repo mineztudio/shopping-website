@@ -19,10 +19,10 @@ window.addProduct = async () => {
     return;
   }
 
-  const name = document.getElementById("sony fx30 camera").value;
-  const price = document.getElementById("1,00,000").value;
-  const category = document.getElementById("electonics").value;
-  const image = document.getElementById("https://sony.scene7.com/is/image/sonyglobalsolutions/Primary_Image-3?$S7Product$&fmt=png-alpha").value;
+  const name = document.getElementByid("sony fx30 camera").value;
+  const price = document.getElementByid("1,00,000").value;
+  const category = document.getElementByid("electonics").value;
+  const image = document.getElementByid("https://sony.scene7.com/is/image/sonyglobalsolutions/Primary_Image-3?$S7Product$&fmt=png-alpha").value;
 
   if (!name || !price || !category || !image) {
     alert("Fill all fields ❌");
