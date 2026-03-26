@@ -1,11 +1,17 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+import {
+  getFirestore,
+  collection,
+  addDoc
+} from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+
+import {
+  getAuth,
+  signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+
+// 🔥 SAME CONFIG HERE
 const firebaseConfig = {
   apiKey: "AIzaSyDLFD0a4IWDyC5jpB8Xw1Atti5M3I-Zg-M",
   authDomain: "shopping-website-3dde5.firebaseapp.com",
@@ -16,17 +22,18 @@ const firebaseConfig = {
   measurementId: "G-H2XZK6K4JP"
 };
 
-// Initialize Firebase
+// Initialize
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const db = getFirestore(app);
+const auth = getAuth(app);
 
-// Admin login
+// Login
 window.login = async () => {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
   await signInWithEmailAndPassword(auth, email, password);
-  alert("Logged in ✅");
+  alert("Admin Logged In ✅");
 };
 
 // Add product
@@ -45,6 +52,3 @@ window.addProduct = async () => {
 
   alert("Product Added 🚀");
 };
-import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
-
-const db = getFirestore(app);
