@@ -1,3 +1,4 @@
+// Admin login
 window.login = async () => {
   try {
     const email = document.getElementById("email").value;
@@ -11,6 +12,7 @@ window.login = async () => {
   }
 };
 
+// Add product (already secure + safe)
 window.addProduct = async () => {
   if (!auth.currentUser) {
     alert("Please login first ❌");
